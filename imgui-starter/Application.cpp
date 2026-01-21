@@ -27,7 +27,7 @@ namespace ClassGame {
             ImGui::DockSpaceOverViewport();
             ImGui::ShowDemoWindow();
 
-            ImGui::Begin("ImGui Log Dem");
+            ImGui::Begin("ImGui Log Demo");
             ImGui::LogButtons();
 
             if (ImGui::Button("Copy \"Hello, world!\" to clipboard"))
