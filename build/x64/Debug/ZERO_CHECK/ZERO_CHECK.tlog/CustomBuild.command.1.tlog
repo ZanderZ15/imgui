@@ -1,0 +1,10 @@
+^C:\USERS\ZANDE\ADVANCED PROGRAMMING_CMPM123\IMGUI\BUILD\CMAKEFILES\8499066E4CBD3CFDAC7C710B6B85A21B\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" "-SC:/Users/zande/Advanced Programming_CMPM123/imgui/imgui-starter" "-BC:/Users/zande/Advanced Programming_CMPM123/imgui/build" --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file "C:/Users/zande/Advanced Programming_CMPM123/imgui/build/tictactoe.sln"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

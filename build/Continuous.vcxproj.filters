@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\zande\Advanced Programming_CMPM123\imgui\build\CMakeFiles\8499066e4cbd3cfdac7c710b6b85a21b\Continuous.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\zande\Advanced Programming_CMPM123\imgui\imgui-starter\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\Users\zande\Advanced Programming_CMPM123\imgui\build\CMakeFiles\Continuous" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{DD09EA2A-6475-3119-B990-7CB66364BEBA}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

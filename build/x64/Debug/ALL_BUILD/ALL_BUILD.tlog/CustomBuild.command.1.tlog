@@ -1,0 +1,10 @@
+^C:\USERS\ZANDE\ADVANCED PROGRAMMING_CMPM123\IMGUI\IMGUI-STARTER\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" "-SC:/Users/zande/Advanced Programming_CMPM123/imgui/imgui-starter" "-BC:/Users/zande/Advanced Programming_CMPM123/imgui/build" --check-stamp-file "C:/Users/zande/Advanced Programming_CMPM123/imgui/build/CMakeFiles/generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
