@@ -1,11 +1,29 @@
 #include "Application.h"
 #include "imgui/imgui.h"
+#include <string>
+
+class Logger {
+    public:
+        
+        static Logger& GetInstance(Logger *instance){
+            if (!instance) {
+            instance = new Logger();
+        }
+        return *instance;
+        }
+
+        void LogInfo(std::string s){
+            return;
+        }
+
+
+};
 
 namespace ClassGame {
         //
         // our global variables
         //
-
+        Logger* instance = nullptr;
         //
         // game starting point
         // this is called by the main render loop in main.cpp
@@ -13,7 +31,7 @@ namespace ClassGame {
         void GameStartUp() 
         {
             // Initialize logging system
-//            Logger& logger = Logger::GetInstance();
+            Logger& logger = Logger::GetInstance(instance);
 //            logger.LogInfo("Game started successfully");
 //            logger.LogGameEvent("Application initialized");
         }
