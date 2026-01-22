@@ -44,33 +44,54 @@ class Logger {
         return *instance;
         }
 
-        void LogInfo(const char* s, std::vector<std::string>& logs){
-            std::string logMessage = timeStamp() + " [INFO] ";
-            logMessage += s;
-            
+        void Log(const char* s, std::vector<std::string>& logs, const int sev = 0){
             std::ofstream outputFile("imgui_log.txt", std::ios::app);
-
-            // Check if the file was opened successfully
             if (!outputFile.is_open()) {
                 std::cerr << "Error opening file!" << std::endl;
-                return; // Return an error code
+                return;
             }
+            if (sev == 0) {ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(255, 255, 255, 255));} //white
+            else if (sev == 1) {ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(255, 218, 3, 255));} //yellow
+            else if (sev == 2) {ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(255, 10, 10, 255));} //red
+
 
             // Append new data to the file
-            outputFile << logMessage << std::endl;
+            outputFile << s << std::endl;
             //Print to terminal
-            std::cout << logMessage << std::endl;
+            std::cout << s << std::endl;
             //Add to imgui logs
-            logs.push_back(logMessage);
-
+            logs.push_back(s);
             // Close the file
             outputFile.close();
+            ImGui::PopStyleColor();
         }
 
-        void LogGameEvent(const char* s, std::vector<std::string>& logs) {
+        void INFO(const char* s, std::vector<std::string>& logs) {
+            std::string logMessage = timeStamp() + " [INFO] ";
+            logMessage += s;
+            Log(logMessage.c_str(), logs, 0);
+        }
+        void WARNING(const char* s, std::vector<std::string>& logs) {
+            std::string logMessage = timeStamp() + " [WARNING] ";
+            logMessage += s;
+            Log(logMessage.c_str(), logs, 1);
+        }
+        void ERROR(const char* s, std::vector<std::string>& logs) {
+            std::string logMessage = timeStamp() + " [ERROR] ";
+            logMessage += s;
+            Log(logMessage.c_str(), logs, 2);
+        }
+
+        void LogGameEvent(const char* s, std::vector<std::string>& logs, const int sev = 0) {
             std::string logMessage = "[GAME] ";
             logMessage += s;
-            LogInfo(logMessage.c_str(), logs);
+            if (sev == 0) {
+                INFO(logMessage.c_str(), logs);
+            } else if (sev == 1) {
+                WARNING(logMessage.c_str(), logs);
+            } else if (sev == 2) {
+                ERROR(logMessage.c_str(), logs);
+            }
         }
 };
 
@@ -98,10 +119,6 @@ namespace ClassGame {
                 return;
             }
             ofs.close(); 
-
-            
-
-            
         }
 
         //
@@ -118,7 +135,7 @@ namespace ClassGame {
             if (first_time) {
                 first_time = false;
                 
-                logger.LogInfo("Game started successfully", logs);
+                logger.INFO("Game started successfully", logs);
                 logger.LogGameEvent("Application initialized", logs);
             }
 
@@ -130,23 +147,23 @@ namespace ClassGame {
             //
             
             if (ImGui::Button("Options")) {
-                logger.LogInfo("Options", logs);
+                //logger.Log("Options", logs);
             }
             ImGui::SameLine();
             if (ImGui::Button("Clear")) {
-                logger.LogInfo("Clear", logs);
+                //logger.Log("Clear", logs);
             }
             ImGui::SameLine();
             if (ImGui::Button("Test Info")) {
-                logger.LogInfo("Info", logs);
+                logger.INFO("This is a test info message", logs);
             }
             ImGui::SameLine();
             if (ImGui::Button("Test Warning")) {
-                logger.LogInfo("Warning", logs);
+                logger.WARNING("This is a test warning message", logs);
             }   
             ImGui::SameLine();
             if (ImGui::Button("Test Error")) {
-                logger.LogInfo("Error", logs);
+                logger.ERROR("This is a test error message", logs);
             }
 
             if (ImGui::BeginChild("ChildSection1", ImVec2(650, 450), ImGuiChildFlags_Border))

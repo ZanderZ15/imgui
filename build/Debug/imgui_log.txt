@@ -1,28 +1,5 @@
-[17:29:03.951] [INFO] Game started successfully
-[17:29:03.952] [INFO] [GAME] Application initialized
-[17:29:11.299] [INFO] Info
-[17:29:12.530] [INFO] Warning
-[17:29:13.150] [INFO] Error
-[17:29:14.330] [INFO] Options
-[17:29:15.132] [INFO] Clear
-[17:29:15.616] [INFO] Info
-[17:29:15.998] [INFO] Warning
-[17:29:16.430] [INFO] Error
-[17:29:19.347] [INFO] Warning
-[17:29:19.498] [INFO] Warning
-[17:29:19.648] [INFO] Warning
-[17:29:19.797] [INFO] Warning
-[17:29:19.948] [INFO] Warning
-[17:29:20.098] [INFO] Warning
-[17:29:20.251] [INFO] Warning
-[17:29:20.414] [INFO] Warning
-[17:29:20.565] [INFO] Warning
-[17:29:20.714] [INFO] Warning
-[17:29:20.882] [INFO] Warning
-[17:29:21.032] [INFO] Warning
-[17:29:21.181] [INFO] Warning
-[17:29:21.331] [INFO] Warning
-[17:29:21.500] [INFO] Warning
-[17:29:21.649] [INFO] Warning
-[17:29:21.799] [INFO] Warning
-[17:29:21.947] [INFO] Warning
+[17:59:49.738] [INFO] Game started successfully
+[17:59:49.740] [INFO] [GAME] Application initialized
+[17:59:51.676] [INFO] This is a test info message
+[17:59:52.626] [WARNING] This is a test warning message
+[17:59:53.744] [ERROR] This is a test error message
