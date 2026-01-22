@@ -1,5 +1,2 @@
-[17:59:49.738] [INFO] Game started successfully
-[17:59:49.740] [INFO] [GAME] Application initialized
-[17:59:51.676] [INFO] This is a test info message
-[17:59:52.626] [WARNING] This is a test warning message
-[17:59:53.744] [ERROR] This is a test error message
+[20:02:41.255] [INFO] Game started successfully
+[20:02:41.256] [INFO] [GAME] Application initialized
