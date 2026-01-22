@@ -2,10 +2,12 @@
 #include "imgui/imgui.h"
 #include <string>
 #include <iostream>
+#include <fstream>
 #include <ctime>
 #include <chrono>
 #include <iomanip>
 #include <sstream>
+#include <vector>
 
 std::string timeStamp() //Galik on stack overflow: https://stackoverflow.com/questions/24686846/get-current-time-in-milliseconds-or-hhmmssmmm-format
 {
@@ -42,17 +44,33 @@ class Logger {
         return *instance;
         }
 
-        void LogInfo(const char* s){
+        void LogInfo(const char* s, std::vector<std::string>& logs){
             std::string logMessage = timeStamp() + " [INFO] ";
             logMessage += s;
-            ImGui::LogText(logMessage.c_str());
+            
+            std::ofstream outputFile("imgui_log.txt", std::ios::app);
+
+            // Check if the file was opened successfully
+            if (!outputFile.is_open()) {
+                std::cerr << "Error opening file!" << std::endl;
+                return; // Return an error code
+            }
+
+            // Append new data to the file
+            outputFile << logMessage << std::endl;
+            //Print to terminal
             std::cout << logMessage << std::endl;
+            //Add to imgui logs
+            logs.push_back(logMessage);
+
+            // Close the file
+            outputFile.close();
         }
 
-        void LogGameEvent(const char* s) {
+        void LogGameEvent(const char* s, std::vector<std::string>& logs) {
             std::string logMessage = "[GAME] ";
             logMessage += s;
-            LogInfo(logMessage.c_str());
+            LogInfo(logMessage.c_str(), logs);
         }
 };
 
@@ -62,7 +80,7 @@ class Logger {
 
 namespace ClassGame {
         //
-        // our global variables
+        // our "global" variables
         //
         
         Logger* instance = nullptr;
@@ -72,12 +90,18 @@ namespace ClassGame {
         //
         void GameStartUp() 
         {
-            // Initialize logging system
-            Logger& logger = Logger::GetInstance(instance);
-            logger.LogInfo("Game started successfully");
-            logger.LogGameEvent("Application initialized");
+            // Clear the file
+            const char* filename = "imgui_log.txt";
+            std::ofstream ofs(filename); 
+            if (!ofs.is_open()) {
+                std::cerr << "Error opening file!" << std::endl;
+                return;
+            }
+            ofs.close(); 
+
             
 
+            
         }
 
         //
@@ -85,37 +109,63 @@ namespace ClassGame {
         // this is called by the main render loop in main.cpp
         //
         void RenderGame() 
-        {
-            Logger& logger = Logger::GetInstance(instance);
+        {   
+            static bool first_time = true;
+            //vector of logs
+            static std::vector<std::string> logs;
+            static Logger& logger = Logger::GetInstance(instance);
+
+            if (first_time) {
+                first_time = false;
+                
+                logger.LogInfo("Game started successfully", logs);
+                logger.LogGameEvent("Application initialized", logs);
+            }
+
             ImGui::DockSpaceOverViewport();
             ImGui::ShowDemoWindow();
 
+            //
             ImGui::Begin("Game Log"); 
-
+            //
             
             if (ImGui::Button("Options")) {
-                logger.LogInfo("Options");
+                logger.LogInfo("Options", logs);
             }
             ImGui::SameLine();
             if (ImGui::Button("Clear")) {
-                logger.LogInfo("Clear");
+                logger.LogInfo("Clear", logs);
             }
             ImGui::SameLine();
             if (ImGui::Button("Test Info")) {
-                logger.LogInfo("Info");
+                logger.LogInfo("Info", logs);
             }
             ImGui::SameLine();
             if (ImGui::Button("Test Warning")) {
-                logger.LogInfo("Warning");
+                logger.LogInfo("Warning", logs);
             }   
             ImGui::SameLine();
             if (ImGui::Button("Test Error")) {
-                logger.LogInfo("Error");
+                logger.LogInfo("Error", logs);
             }
+
+            if (ImGui::BeginChild("ChildSection1", ImVec2(650, 450), ImGuiChildFlags_Border))
+                {
+
+                    
+                    
+                    for (int n = 0; n < logs.size(); n++) {
+                        const char* to_log = logs[n].c_str();
+                        ImGui::Text(to_log);
+                    }
+                    
+                }
+                // 
+                ImGui::EndChild();
             
-
+            //
             ImGui::End();
-
+            //
             
             
             ImGui::Begin("ImGui Log Demo");
